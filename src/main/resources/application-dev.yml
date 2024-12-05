@@ -1,0 +1,45 @@
+spring:
+  datasource:
+    url: ${DEV_DB_HOST}
+    username: ${DEV_DB_USER}
+    password: ${DEV_DB_PASSWORD}
+    hikari:
+      idle-timeout: 10000
+      pool-name: PoolHikari
+      maximum-pool-size: 10  # Define o tamanho máximo do pool de conexões
+      max-lifetime: 1800000  # Tempo máximo de vida da conexão (milissegundos)
+      connection-test-query: SELECT 1  # Query para testar a conexão
+      validation-timeout: 1000  # Tempo de validação da conexão (milissegundos)
+      minimum-idle: 5  # Número mínimo de conexões ociosas no pool
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+      show-sql: false
+
+api:
+  security:
+    token:
+      secret: ${JWT_SECRET}
+
+server:
+  port: 9000
+  ssl:
+    key-store: classpath:keystore.p12
+    key-store-password: ${KEY_PASSWORD}
+    key-store-type: PKCS12
+    key-alias: ${KEY_ALIAS}
+  servlet:
+    tomcat:
+      max-threads: 100
+      min-spare-threads: 10
+      max-connections: 1000
+      connection-timeout: 20000
+      max-http-header-size: 8192
+
+ifleet:
+  token: ${IFLEET_TOKEN}
+  username: ${IFLEET_USERNAME}
+  password: ${IFLEET_PASSWORD}
+  server: ${IFLEET_SERVER}
